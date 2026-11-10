@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Miracle Victory Ajoku · Chemical Engineer</title>
+<meta name="description" content="Miracle Victory Ajoku, chemical engineer modelling CO₂ separation, from membrane transport physics to plant-scale techno-economics.">
+<meta property="og:title" content="Miracle Victory Ajoku · Chemical Engineer">
+<meta property="og:description" content="Membrane-based CO₂ capture, process modelling, techno-economics and machine learning.">
+<meta property="og:image" content="assets/img/hero.webp">
+<meta name="theme-color" content="#0A1828">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230A1828'/><text x='32' y='42' font-family='Arial' font-weight='700' font-size='26' text-anchor='middle' fill='%232DD4BF'>MA</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:dark;
+  --ink:#0A1828;--deep:#07111E;--panel:#102338;--panel2:#15304A;--line:#21405E;
+  --text:#E7EEF5;--muted:#93A8BD;--teal:#2DD4BF;--teal-d:#14B8A6;--amber:#F5A524;
+  --display:"Space Grotesk",system-ui,sans-serif;--body:"IBM Plex Sans",system-ui,sans-serif;
+  --wrap:1180px;--r-s:8px;--r-m:14px;--r-l:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{font-family:var(--body);background:var(--ink);color:var(--text);line-height:1.65;font-size:17px;-webkit-font-smoothing:antialiased;min-height:100vh}
+img{max-width:100%;display:block}
+a{color:var(--teal);text-decoration:none}
+a:hover{text-decoration:underline}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.15;letter-spacing:-.01em}
+h2{font-size:clamp(1.9rem,3.6vw,2.7rem);font-weight:600}
+h3{font-size:1.3rem;font-weight:600}
+p{max-width:72ch}
+.muted{color:var(--muted)}
+.lede{font-size:1.15rem;color:#C9D6E2}
+
+/* ---------- nav ---------- */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(10,24,40,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(33,64,94,.6);padding-top:env(safe-area-inset-top,0px)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.brand{font-family:var(--display);font-weight:700;font-size:1.05rem;color:var(--text);display:flex;align-items:center;gap:10px;white-space:nowrap}
+.brand:hover{text-decoration:none}
+.brand .mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--teal),#0E7C70);display:grid;place-items:center;color:var(--ink);font-size:.85rem}
+.nav ul{display:flex;list-style:none;gap:2px;align-items:center}
+.nav ul a{color:var(--muted);padding:8px 12px;border-radius:999px;font-size:.93rem;font-weight:500;display:block}
+.nav ul a:hover{color:var(--text);background:rgba(45,212,191,.08);text-decoration:none}
+.nav ul a.active{color:var(--teal);background:rgba(45,212,191,.12)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:999px;font-weight:600;font-size:.95rem;border:1px solid transparent;transition:background .2s,transform .2s,border-color .2s}
+.btn:hover{text-decoration:none;transform:translateY(-1px)}
+.btn-primary{background:var(--teal);color:var(--ink)}
+.btn-primary:hover{background:#5EEAD4}
+.btn-ghost{border-color:var(--line);color:var(--text);background:rgba(16,35,56,.6)}
+.btn-ghost:hover{border-color:var(--teal);color:var(--teal)}
+.btn-amber{background:var(--amber);color:#1A1203}
+.btn-amber:hover{background:#FBBF24}
+.btn svg{width:17px;height:17px}
+.nav ul a.cv{padding:8px 16px;font-size:.88rem;color:#1A1203;background:var(--amber);margin-left:6px}
+.nav ul a.cv:hover{background:#FBBF24;color:#1A1203}
+.menu-btn{display:none;background:none;border:1px solid var(--line);color:var(--text);border-radius:10px;width:42px;height:42px}
+@media (max-width:1080px){
+  .nav ul{position:fixed;inset:68px 0 auto 0;margin-top:env(safe-area-inset-top,0px);flex-direction:column;align-items:stretch;background:var(--deep);border-bottom:1px solid var(--line);padding:12px 20px 20px;gap:4px;transform:translateY(-130%);transition:transform .3s;max-height:calc(100vh - 68px);overflow:auto}
+  .nav ul.open{transform:none}
+  .nav ul a{padding:12px 14px;font-size:1rem}
+  .menu-btn{display:grid;place-items:center}
+}
+
+/* ---------- page system ---------- */
+main{min-height:calc(100vh - 160px)}
+.page{display:none;animation:pageIn .45s ease}
+.page.active{display:block}
+@keyframes pageIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.page-head{padding:72px 0 36px;border-bottom:1px solid var(--line);margin-bottom:48px;background:radial-gradient(900px 300px at 15% 0%,rgba(45,212,191,.09),transparent 70%)}
+.page-head p{margin-top:14px}
+.crumb{color:var(--amber);font-family:var(--display);font-weight:500;font-size:.95rem;margin-bottom:10px;display:block}
+section.block{padding-bottom:72px}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:calc(100vh - 68px);display:flex;align-items:center;overflow:hidden;isolation:isolate}
+.hero-bg{position:absolute;inset:0;z-index:-2;background:url(assets/img/hero.webp) center/cover no-repeat;animation:drift 40s ease-in-out infinite alternate;opacity:.75}
+@keyframes drift{from{transform:scale(1.05) translateX(0)}to{transform:scale(1.14) translateX(-2%)}}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,var(--ink) 0%,rgba(10,24,40,.93) 38%,rgba(10,24,40,.55) 70%,rgba(10,24,40,.75) 100%),linear-gradient(0deg,var(--ink) 0%,transparent 30%)}
+.hero .wrap{display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:center;padding-top:48px;padding-bottom:64px}
+.hero h1{font-size:clamp(2.6rem,6vw,4.6rem);font-weight:700;letter-spacing:-.025em;line-height:1.02}
+.hero h1 .sub{display:block;font-size:.42em;font-weight:500;color:var(--muted);letter-spacing:0;margin-top:18px;line-height:1.35}
+.role{font-family:var(--display);font-size:clamp(1.05rem,2vw,1.3rem);color:var(--teal);margin:22px 0 0;min-height:1.6em}
+.role .caret{display:inline-block;width:2px;height:1.1em;background:var(--teal);vertical-align:-3px;margin-left:3px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.hero .lede{margin:22px 0 30px;max-width:56ch}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px}
+.socials{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.socials a{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(16,35,56,.75);border:1px solid var(--line);color:var(--text);transition:all .2s}
+.socials a:hover{border-color:var(--teal);color:var(--teal);text-decoration:none;transform:translateY(-2px)}
+.socials svg{width:20px;height:20px}
+.portrait{position:relative;justify-self:center;width:min(360px,100%)}
+.portrait .frame{border-radius:28px;overflow:hidden;border:1px solid rgba(45,212,191,.35);box-shadow:0 30px 80px -20px rgba(0,0,0,.7),0 0 0 8px rgba(45,212,191,.06)}
+.portrait img{aspect-ratio:4/5;object-fit:cover;width:100%;height:auto}
+.portrait .tag{position:absolute;left:-28px;bottom:34px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 16px;font-size:.85rem;box-shadow:0 14px 40px -10px rgba(0,0,0,.6);max-width:230px}
+.portrait .tag b{display:block;font-family:var(--display);color:var(--amber);font-size:1rem}
+.portrait .tag2{left:auto;right:-34px;top:-22px;bottom:auto}
+.portrait .tag2 b{color:var(--teal)}
+@media (max-width:900px){
+  .hero .wrap{grid-template-columns:1fr;gap:40px}
+  .portrait{order:-1;width:min(280px,80%)}
+  .portrait .tag{display:none}
+}
+
+/* ---------- home strips ---------- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:var(--r-l);overflow:hidden;background:var(--panel)}
+.stats div{padding:26px 24px;border-right:1px solid var(--line)}
+.stats div:last-child{border-right:0}
+.stats b{font-family:var(--display);font-size:2.1rem;font-weight:600;color:var(--text);display:block;line-height:1.1}
+.stats span{color:var(--muted);font-size:.92rem}
+@media (max-width:760px){.stats{grid-template-columns:1fr 1fr}.stats div:nth-child(2){border-right:0}.stats div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+.statement{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start;padding:88px 0 40px}
+.statement h2{font-size:clamp(1.7rem,3vw,2.3rem)}
+.statement p+p{margin-top:16px}
+@media (max-width:860px){.statement{grid-template-columns:1fr;gap:20px}}
+.open-to{margin-top:26px;padding:18px 20px;border-left:3px solid var(--amber);background:rgba(245,165,36,.07);border-radius:0 12px 12px 0}
+.open-to b{color:var(--amber);font-family:var(--display)}
+.badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:var(--panel);border:1px solid var(--line);font-size:.88rem;color:#CFDCE8}
+.badge i{width:8px;height:8px;border-radius:50%;background:var(--teal);flex:none}
+.badge.am i{background:var(--amber)}
+
+.featured{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+@media (max-width:900px){.featured{grid-template-columns:1fr}}
+.feat{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-m);overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:border-color .2s}
+.feat:hover{border-color:var(--teal)}
+.feat img{aspect-ratio:16/9;object-fit:cover;width:100%}
+.feat .in{padding:20px 22px 24px}
+.feat h3{font-size:1.1rem;margin:6px 0 8px}
+.feat p{font-size:.94rem;color:var(--muted)}
+.kicker{font-size:.82rem;color:var(--amber);font-weight:600}
+.sec-title{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:26px;flex-wrap:wrap}
+.sec-title h2{font-size:clamp(1.5rem,2.6vw,2rem)}
+
+/* ---------- research ---------- */
+.theme{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;padding:48px 0;border-bottom:1px solid var(--line)}
+.theme:last-child{border-bottom:0}
+.theme.flip .media{order:2}
+.theme .media{border-radius:var(--r-l);overflow:hidden;border:1px solid var(--line);position:relative}
+.theme .media img{aspect-ratio:16/10;object-fit:cover;width:100%}
+.theme .lead-tag{position:absolute;top:14px;left:14px;background:var(--amber);color:#1A1203;font-weight:700;font-size:.8rem;padding:6px 12px;border-radius:999px}
+.theme h3{font-size:1.6rem;margin-bottom:12px}
+.theme p{color:#C9D6E2}
+.finding{margin-top:18px;padding:16px 18px;background:var(--panel);border:1px solid var(--line);border-radius:12px;font-size:.95rem}
+.finding b{color:var(--teal);font-family:var(--display)}
+.theme .links{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 13px;border-radius:999px;border:1px solid var(--line);font-size:.85rem;color:var(--text);background:rgba(7,17,30,.5)}
+.chip:hover{border-color:var(--teal);color:var(--teal);text-decoration:none}
+.figrow{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+.figthumb{width:140px;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:#fff;cursor:zoom-in;padding:0}
+.figthumb img{aspect-ratio:4/3;object-fit:contain;width:100%;background:#fff}
+@media (max-width:860px){.theme{grid-template-columns:1fr;gap:24px}.theme.flip .media{order:0}}
+
+/* ---------- publications ---------- */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:30px}
+.filters button{background:var(--panel);border:1px solid var(--line);color:var(--muted);padding:9px 16px;border-radius:999px;font-size:.92rem;font-weight:500}
+.filters button[aria-pressed="true"]{background:var(--teal);color:var(--ink);border-color:var(--teal)}
+.pub{display:grid;grid-template-columns:120px 1fr;gap:24px;padding:26px 0;border-top:1px solid var(--line)}
+.pub .status{font-family:var(--display);font-size:.85rem;font-weight:600;padding-top:3px}
+.pub .status.pubd{color:var(--teal)}.pub .status.pre{color:var(--amber)}.pub .status.rev{color:#A5B4FC}
+.pub h3{font-size:1.12rem;font-weight:600;line-height:1.35;margin-bottom:8px}
+.pub .auth{font-size:.93rem;color:var(--muted)}
+.pub .auth b{color:var(--text);font-weight:600}
+.pub .venue{font-size:.93rem;font-style:italic;color:#C9D6E2;margin-top:4px}
+.pub .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+@media (max-width:640px){.pub{grid-template-columns:1fr;gap:8px}}
+.review-card{margin-top:40px;display:flex;gap:20px;align-items:center;padding:24px 26px;border-radius:var(--r-m);background:linear-gradient(120deg,rgba(45,212,191,.12),rgba(16,35,56,.9));border:1px solid rgba(45,212,191,.35)}
+.review-card .ico{width:54px;height:54px;border-radius:14px;background:var(--teal);color:var(--ink);display:grid;place-items:center;flex:none}
+.review-card .ico svg{width:28px;height:28px}
+.review-card h3{font-size:1.15rem}
+.open-sci{margin-top:20px;padding:20px 24px;border:1px dashed var(--line);border-radius:var(--r-m);color:var(--muted);font-size:.95rem}
+.open-sci b{color:var(--text)}
+
+/* ---------- projects ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:22px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-m);overflow:hidden;display:flex;flex-direction:column;text-align:left;color:var(--text);padding:0;transition:border-color .2s,transform .2s}
+.card:hover{border-color:var(--teal);transform:translateY(-3px)}
+.card .thumb{aspect-ratio:16/9;width:100%;background:var(--deep);display:grid;place-items:center;overflow:hidden}
+.card .thumb img{width:100%;height:100%;object-fit:cover}
+.card .thumb.white img{object-fit:contain;background:#fff}
+.card .thumb svg{width:84px;height:84px;color:var(--teal)}
+.card .in{padding:18px 20px 22px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card h3{font-size:1.08rem}
+.card p{font-size:.92rem;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:8px}
+.tags span{font-size:.76rem;padding:3px 9px;border-radius:6px;background:rgba(45,212,191,.1);color:#99F6E4}
+.card[hidden]{display:none}
+
+/* ---------- experience ---------- */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:34px}
+.timeline{position:relative;padding-left:34px}
+.timeline::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--teal),var(--line))}
+.tl{position:relative;padding:0 0 38px}
+.tl::before{content:"";position:absolute;left:-32px;top:7px;width:14px;height:14px;border-radius:50%;background:var(--ink);border:3px solid var(--teal)}
+.tl.am::before{border-color:var(--amber)}
+.tl .when{font-size:.88rem;color:var(--amber);font-weight:600;font-family:var(--display)}
+.tl h3{font-size:1.2rem;margin:4px 0 2px}
+.tl .org{color:var(--muted);font-size:.95rem;margin-bottom:10px}
+.tl ul{padding-left:18px;color:#C9D6E2;font-size:.96rem}
+.tl li{margin:5px 0;max-width:75ch}
+.tl[hidden]{display:none}
+.edu{display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;padding:26px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r-m);margin-bottom:44px}
+.edu .yr{font-family:var(--display);font-size:2rem;font-weight:700;color:var(--teal);line-height:1}
+.edu .gpa{text-align:right}
+.edu .gpa b{font-family:var(--display);font-size:1.5rem;display:block}
+@media (max-width:700px){.edu{grid-template-columns:1fr;gap:10px}.edu .gpa{text-align:left}}
+
+/* ---------- skills ---------- */
+.skills{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:22px}
+.sk{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-m);padding:24px}
+.sk h3{font-size:1.1rem;display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.sk h3 svg{width:22px;height:22px;color:var(--teal);flex:none}
+.sk ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.sk li{font-size:.94rem;padding-left:16px;position:relative;color:#D3DEE8}
+.sk li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:2px;background:var(--teal)}
+.sk li small{display:block;color:var(--muted);font-size:.82rem}
+.sk.wide{grid-column:1/-1}
+.lang{display:flex;gap:16px;flex-wrap:wrap}
+.lang div{flex:1;min-width:200px;padding:16px 18px;border-radius:12px;background:var(--deep);border:1px solid var(--line)}
+.lang b{font-family:var(--display);display:block}
+.meter{height:6px;border-radius:3px;background:var(--line);margin-top:10px;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--teal)}
+
+/* ---------- service ---------- */
+.service-hero{display:grid;grid-template-columns:1.2fr .8fr;gap:22px;margin-bottom:44px}
+.service-hero figure,.gallery figure{border-radius:var(--r-m);overflow:hidden;border:1px solid var(--line);position:relative;background:var(--deep);margin:0;cursor:zoom-in}
+.service-hero img,.gallery img{width:100%;height:100%;object-fit:cover}
+.service-hero figure:first-child img{aspect-ratio:4/3}
+.service-hero figure:last-child img{aspect-ratio:3/4}
+figcaption{position:absolute;left:0;right:0;bottom:0;padding:40px 18px 14px;font-size:.88rem;background:linear-gradient(transparent,rgba(7,17,30,.92))}
+@media (max-width:760px){.service-hero{grid-template-columns:1fr}}
+.svc{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:22px}
+.svc article{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-m);padding:24px}
+.svc .when{color:var(--amber);font-size:.86rem;font-weight:600;font-family:var(--display)}
+.svc h3{font-size:1.12rem;margin:6px 0 10px}
+.svc p,.svc li{font-size:.94rem;color:#C9D6E2}
+.svc ul{padding-left:18px;margin-top:6px}
+.awards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px;margin-top:22px}
+.award{padding:24px;border-radius:var(--r-m);background:linear-gradient(160deg,rgba(245,165,36,.12),var(--panel) 55%);border:1px solid rgba(245,165,36,.3)}
+.award .yr{color:var(--amber);font-family:var(--display);font-weight:600;font-size:.88rem}
+.award h3{font-size:1.08rem;margin:6px 0 8px}
+.award p{font-size:.92rem;color:var(--muted)}
+
+/* ---------- contact ---------- */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+@media (max-width:860px){.contact{grid-template-columns:1fr}}
+.mail{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:22px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r-m);margin:22px 0}
+.mail span{font-family:var(--display);font-size:1.2rem;word-break:break-all}
+.profiles{display:grid;gap:12px}
+.profiles a{display:flex;align-items:center;gap:16px;padding:16px 20px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r-m);color:var(--text);transition:border-color .2s}
+.profiles a:hover{border-color:var(--teal);text-decoration:none}
+.profiles svg{width:26px;height:26px;color:var(--teal);flex:none}
+.profiles small{display:block;color:var(--muted);font-size:.84rem}
+.toast{visibility:hidden;position:fixed;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));transform:translate(-50%,140%);background:var(--teal);color:var(--ink);padding:12px 22px;border-radius:999px;font-weight:600;z-index:100;transition:transform .3s}
+.toast.show{transform:translate(-50%,0);visibility:visible}
+
+/* ---------- modal / lightbox ---------- */
+dialog{border:0;padding:0;background:transparent;max-width:min(920px,94vw);width:100%;margin:auto;color:var(--text)}
+dialog::backdrop{background:rgba(3,8,15,.82);backdrop-filter:blur(4px)}
+.modal{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-l);overflow:hidden;max-height:90vh;overflow-y:auto}
+.modal .mhead img{width:100%;max-height:380px;object-fit:cover}
+.modal .mhead.white img{object-fit:contain;background:#fff;padding:10px}
+.modal .mbody{padding:28px 30px 32px}
+.modal h3{font-size:1.5rem;margin:4px 0 14px}
+.modal ul{padding-left:20px;color:#C9D6E2;margin:12px 0}
+.modal li{margin:6px 0}
+.close{position:sticky;top:12px;float:right;margin:12px 12px -56px 0;z-index:3;width:44px;height:44px;border-radius:50%;background:rgba(7,17,30,.85);color:var(--text);border:1px solid var(--line);font-size:1.3rem}
+.lb img{max-height:86vh;width:auto;margin:0 auto;border-radius:12px;background:#fff}
+.lb p{text-align:center;color:#C9D6E2;margin:12px auto 0;font-size:.93rem}
+
+footer{border-top:1px solid var(--line);padding:30px 0 calc(30px + env(safe-area-inset-bottom,0px));color:var(--muted);font-size:.88rem}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#home" class="brand" data-link><span class="mark">MA</span>Miracle Ajoku</a>
+    <ul id="menu">
+      <li><a href="#home" data-link>Home</a></li>
+      <li><a href="#research" data-link>Research</a></li>
+      <li><a href="#publications" data-link>Publications</a></li>
+      <li><a href="#projects" data-link>Projects</a></li>
+      <li><a href="#experience" data-link>Experience</a></li>
+      <li><a href="#skills" data-link>Skills</a></li>
+      <li><a href="#service" data-link>Service</a></li>
+      <li><a href="#contact" data-link>Contact</a></li>
+      <li><a class="btn btn-amber cv" href="cv.pdf" target="_blank" rel="noopener">Download CV</a></li>
+    </ul>
+    <button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+<!-- ================= HOME ================= -->
+<div class="page" id="page-home">
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="wrap">
+      <div>
+        <h1>Miracle Victory Ajoku<span class="sub">Chemical engineer modelling CO₂ separation, from membrane transport physics to plant-scale techno-economics.</span></h1>
+        <p class="role" aria-live="polite"><span id="roleText">Membrane CO₂ capture researcher</span><span class="caret"></span></p>
+        <p class="lede">I build physics-based models of gas separation, validate them against pilot data, and use techno-economics and machine learning to test whether common design shortcuts actually hold.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#research" data-link>Explore my research</a>
+          <a class="btn btn-ghost" href="cv.pdf" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-5-5m5 5l5-5M5 21h14"/></svg>Download CV</a>
+        </div>
+        <div class="socials" id="heroSocials"></div>
+      </div>
+      <div class="portrait">
+        <div class="frame"><img src="assets/img/headshot.webp" alt="Portrait of Miracle Victory Ajoku" width="800" height="1071"></div>
+        <div class="tag tag2"><b>Peer reviewer</b>Petroleum Science (KeAi / Elsevier)</div>
+        <div class="tag"><b>Top 6 of 176</b>BEng Chemical Engineering, FUTO</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="stats" role="list">
+      <div role="listitem"><b>4.42<small style="font-size:.5em;color:var(--muted)">/5.00</small></b><span>CGPA (3.71/4.00 on a 4-point scale)</span></div>
+      <div role="listitem"><b>8</b><span>Publications, preprints and manuscripts</span></div>
+      <div role="listitem"><b>2</b><span>National merit scholarships (PTDF, FSB)</span></div>
+      <div role="listitem"><b>500+</b><span>Students tutored and mentored</span></div>
+    </div>
+
+    <div class="statement">
+      <div>
+        <span class="crumb">Research statement</span>
+        <h2>When do the shortcuts used to design carbon capture systems break down, and what does it cost?</h2>
+      </div>
+      <div>
+        <p class="lede">My work spans scales: from dual-mode sorption in glassy-polymer hollow fibres, to rate-based amine absorption validated against the Kaiserslautern pilot plant, to the cost of capture for natural gas, coal and cement flue gases.</p>
+        <p class="muted">I have shown that sizing membranes with pure-gas permeability data undersizes modules by up to 9.6%, and that membrane pre-concentration ahead of MEA absorption raises capture cost even with a free membrane. I combine this with machine learning and data analysis, and I make all my code and data openly available.</p>
+        <div class="open-to"><b>Open to</b> Erasmus Mundus and fully funded MSc or PhD programmes in carbon capture, membrane technology, process systems engineering and the energy transition, and to engineering roles in these areas.</div>
+        <div class="badges">
+          <span class="badge"><i></i>Peer reviewer, Petroleum Science</span>
+          <span class="badge am"><i></i>PTDF Merit Scholar</span>
+          <span class="badge am"><i></i>Federal Scholarship Board Merit Scholar</span>
+          <span class="badge"><i></i>Open code and data on Zenodo</span>
+        </div>
+      </div>
+    </div>
+
+    <section class="block">
+      <div class="sec-title"><h2>Selected work</h2><a href="#publications" data-link>All publications</a></div>
+      <div class="featured" id="featured"></div>
+    </section>
+  </div>
+</div>
+
+<!-- ================= RESEARCH ================= -->
+<div class="page" id="page-research">
+  <div class="page-head"><div class="wrap">
+    <span class="crumb">Research</span>
+    <h2>Modelling CO₂ separation across scales</h2>
+    <p class="lede">Membrane-based CO₂ capture is my lead interest. Around it sit amine absorption, hybrid process design, machine learning for energy systems, and environmental data science.</p>
+  </div></div>
+  <div class="wrap"><section class="block" id="themes"></section></div>
+</div>
+
+<!-- ================= PUBLICATIONS ================= -->
+<div class="page" id="page-publications">
+  <div class="page-head"><div class="wrap">
+    <span class="crumb">Publications</span>
+    <h2>Papers, preprints and manuscripts</h2>
+    <p class="lede">Eight works across carbon capture, membranes, energy forecasting, environmental justice and AI. My name is in bold.</p>
+  </div></div>
+  <div class="wrap"><section class="block">
+    <div class="filters" role="group" aria-label="Filter publications">
+      <button aria-pressed="true" data-f="all">All</button>
+      <button aria-pressed="false" data-f="pubd">Published</button>
+      <button aria-pressed="false" data-f="pre">Preprints and submitted</button>
+      <button aria-pressed="false" data-f="rev">Under review</button>
+    </div>
+    <div id="pubList"></div>
+    <div class="review-card">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg></div>
+      <div><h3>Peer reviewer, Petroleum Science</h3><p class="muted">China University of Petroleum, published by KeAi / Elsevier. Reviewed one manuscript in 2026.</p></div>
+    </div>
+    <div class="open-sci"><b>Open science.</b> Code and data for my membrane, hybrid capture, methane and AI security studies are archived with DOIs on Zenodo, so every result can be reproduced.</div>
+  </section></div>
+</div>
+
+<!-- ================= PROJECTS ================= -->
+<div class="page" id="page-projects">
+  <div class="page-head"><div class="wrap">
+    <span class="crumb">Projects</span>
+    <h2>Research, engineering and data projects</h2>
+    <p class="lede">Select a project to see what I did, the methods, and links to code or apps.</p>
+  </div></div>
+  <div class="wrap"><section class="block">
+    <div class="filters" role="group" aria-label="Filter projects">
+      <button aria-pressed="true" data-p="all">All</button>
+      <button aria-pressed="false" data-p="research">Research</button>
+      <button aria-pressed="false" data-p="design">Engineering design</button>
+      <button aria-pressed="false" data-p="data">Data science</button>
+    </div>
+    <div class="grid" id="projGrid"></div>
+  </section></div>
+</div>
+
+<!-- ================= EXPERIENCE ================= -->
+<div class="page" id="page-experience">
+  <div class="page-head"><div class="wrap">
+    <span class="crumb">Experience</span>
+    <h2>Education, work and research</h2>
+  </div></div>
+  <div class="wrap"><section class="block">
+    <div class="edu">
+      <div class="yr">2024</div>
+      <div><h3>BEng Chemical Engineering</h3><p class="muted">Federal University of Technology Owerri (FUTO), Nigeria, 2018 to 2024. PTDF and Federal Scholarship Board Merit Scholar.</p></div>
+      <div class="gpa"><b>4.42 / 5.00</b><span class="muted">Ranked 6 of 176</span></div>
+    </div>
+    <div class="tabs filters" role="group" aria-label="Filter experience">
+      <button aria-pressed="true" data-e="all">All</button>
+      <button aria-pressed="false" data-e="work">Work</button>
+      <button aria-pressed="false" data-e="research">Research</button>
+      <button aria-pressed="false" data-e="teaching">Teaching</button>
+    </div>
+    <div class="timeline" id="timeline"></div>
+  </section></div>
+</div>
+
+<!-- ================= SKILLS ================= -->
+<div class="page" id="page-skills">
+  <div class="page-head"><div class="wrap">
+    <span class="crumb">Skills</span>
+    <h2>Tools and methods</h2>
+    <p class="lede">Each skill is tied to work where I used it.</p>
+  </div></div>
+  <div class="wrap"><section class="block"><div class="skills" id="skillGrid"></div></section></div>
+</div>
+
+<!-- ================= SERVICE ================= -->
+<div class="page" id="page-service">
+  <div class="page-head"><div class="wrap">
+    <span class="crumb">Service and leadership</span>
+    <h2>Community, leadership and recognition</h2>
+  </div></div>
+  <div class="wrap"><section class="block">
+    <div class="service-hero">
+      <figure data-lb="assets/img/nysc-sanitation.webp" data-cap="Environmental sanitation outreach with fellow NYSC corps members, Apapa, Lagos">
+        <img src="assets/img/nysc-sanitation.webp" alt="NYSC corps members at a community sanitation outreach" loading="lazy">
+        <figcaption>Community sanitation outreach, Apapa, Lagos</figcaption></figure>
+      <figure data-lb="assets/img/nysc-certificate.webp" data-cap="Receiving the NYSC Certificate of National Service">
+        <img src="assets/img/nysc-certificate.webp" alt="Miracle holding his NYSC Certificate of National Service" loading="lazy">
+        <figcaption>Certificate of National Service, 2026</figcaption></figure>
+    </div>
+    <div class="svc" id="svcList"></div>
+    <div class="service-hero" style="grid-template-columns:1fr;margin-top:22px">
+      <figure data-lb="assets/img/nysc-ndlea.webp" data-cap="NYSC–NDLEA Community Development Service group, drug abuse awareness session, Apapa LGA">
+        <img src="assets/img/nysc-ndlea.webp" alt="NYSC NDLEA CDS group with drug abuse awareness banner" loading="lazy" style="aspect-ratio:16/8">
+        <figcaption>NYSC–NDLEA CDS group, drug abuse awareness campaign</figcaption></figure>
+    </div>
+    <div class="sec-title" style="margin-top:56px"><h2>Honours and awards</h2></div>
+    <div class="awards" id="awardList"></div>
+  </section></div>
+</div>
+
+<!-- ================= CONTACT ================= -->
+<div class="page" id="page-contact">
+  <div class="page-head"><div class="wrap">
+    <span class="crumb">Contact</span>
+    <h2>Let’s talk about research</h2>
+  </div></div>
+  <div class="wrap"><section class="block contact">
+    <div>
+      <p class="lede">I welcome conversations about graduate research in membrane-based CO₂ capture and process systems engineering, collaborations, and engineering roles.</p>
+      <div class="mail">
+        <span>miracleajoku96@gmail.com</span>
+        <button class="btn btn-ghost" id="copyMail">Copy email</button>
+        <a class="btn btn-primary" href="mailto:miracleajoku96@gmail.com">Send email</a>
+      </div>
+      <p class="muted">Based in Lagos, Nigeria. Open to relocation for study or work.</p>
+      <div class="cta-row" style="margin-top:22px"><a class="btn btn-amber" href="cv.pdf" target="_blank" rel="noopener">Download CV (PDF)</a></div>
+    </div>
+    <div class="profiles" id="profileList"></div>
+  </section></div>
+</div>
+</main>
+
+<footer><div class="wrap"><span>© <span id="yr"></span> Miracle Victory Ajoku</span><span>Chemical Engineering · Carbon Capture · Process Modelling</span></div></footer>
+
+<dialog id="modal"><button class="close" aria-label="Close">×</button><div class="modal" id="modalBody"></div></dialog>
+<dialog id="lightbox"><button class="close" aria-label="Close">×</button><div class="lb"><img id="lbImg" alt=""><p id="lbCap"></p></div></dialog>
+<div class="toast" id="toast">Email copied</div>
+
+<script>
+/* ================= DATA ================= */
+const I = {
+  linkedin:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11-.01 5 2.5 2.5 0 01.01-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C20.6 8.65 21 11.2 21 14.4V21h-4v-5.8c0-1.4-.03-3.2-1.95-3.2-1.96 0-2.25 1.5-2.25 3.1V21H9z"/></svg>',
+  github:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 00-3.64 22.4c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.38-3.88-1.38-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 015.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0012 .5z"/></svg>',
+  orcid:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0a12 12 0 100 24 12 12 0 000-24zM8.1 17.4H6.6V7.3h1.5zM7.35 6.2a.98.98 0 110-1.96.98.98 0 010 1.96zm3.1 1.1h4.07c3.87 0 5.58 2.77 5.58 5.06 0 2.49-1.96 5.05-5.56 5.05h-4.09zm1.5 1.35v7.4h2.4c3.42 0 4.2-2.6 4.2-3.7 0-1.8-1.15-3.7-4.27-3.7z"/></svg>',
+  scholar:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 9l4 2.6V17c0 2.2 3.1 4 7 4s7-1.8 7-4v-5.4L23 9zm0 2.4L19.3 9 12 13.6 4.7 9zM7 13l5 3.2 5-3.2v4c0 .9-2 2-5 2s-5-1.1-5-2z"/></svg>',
+  rg:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18v18H3zm7.6 4.2c-1.9 0-3 .9-3 2.5v4.6c0 1.6 1.1 2.5 3 2.5h.5v-1.4h-.4c-1 0-1.5-.4-1.5-1.2V9.8c0-.8.5-1.2 1.4-1.2.5 0 1 .1 1.3.3l.4-1.3c-.4-.3-1-.4-1.7-.4zm3 2v7.6h1.5v-3.1h.9l1.6 3.1h1.7l-1.8-3.4c.8-.4 1.3-1.1 1.3-2.1 0-1.4-1-2.1-2.6-2.1zm1.5 1.2h.8c.6 0 1 .3 1 1s-.4 1-1 1h-.8z"/></svg>',
+  mail:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>',
+  ext:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></svg>'
+};
+const PROFILES = [
+  {k:'linkedin',n:'LinkedIn',d:'Professional profile',u:'https://www.linkedin.com/in/miracle-ajoku-38339523a/'},
+  {k:'github',n:'GitHub',d:'Code and data projects',u:'https://github.com/neutron-96'},
+  {k:'orcid',n:'ORCID',d:'0009-0001-2256-3651',u:'https://orcid.org/0009-0001-2256-3651'},
+  {k:'scholar',n:'Google Scholar',d:'Citations and papers',u:'https://scholar.google.com/citations?user=9_NUl58AAAAJ&hl=en'},
+  {k:'rg',n:'ResearchGate',d:'Preprints and research',u:'https://www.researchgate.net/profile/Miracle-Ajoku'},
+  {k:'mail',n:'Email',d:'miracleajoku96@gmail.com',u:'mailto:miracleajoku96@gmail.com'}
+];
+const ME = 'Ajoku M. V.';
+const PUBS = [
+  {s:'pubd',t:'The potential of amine-to-feed flowrate ratio for post-combustion carbon capture systems using Aspen HYSYS',a:'Anyikwa S. O., Ajoku M. V., et al. (co-lead author)',v:'Journal of Business, IT, and Social Science, 5(1), 97–103, 2026',l:[['DOI','https://doi.org/10.51470/bits.2026.05.01.97']]},
+  {s:'pre',t:'Can pure-gas permeability data design a mixed-gas module? A correctability map for dual-mode CO₂/N₂ transport in Matrimid 5218 hollow fibres',a:'Ajoku M. V., Sola-Ojo M., Duru G. C.',v:'Research Square preprint, 2026. Submitted to Theoretical Foundations of Chemical Engineering',l:[['Preprint','https://doi.org/10.21203/rs.3.rs-11646086/v1'],['Code and data','https://doi.org/10.5281/zenodo.23070727']]},
+  {s:'pre',t:'Membrane pre-concentration ahead of MEA absorption: a rate-based, mixed-gas techno-economic assessment for natural gas, coal and cement flue gases',a:'Ajoku M. V.',v:'Research Square preprint, 2026. Submitted to Chemical and Biochemical Engineering Quarterly',l:[['Preprint','https://doi.org/10.21203/rs.3.rs-11674132/v1'],['Code','https://doi.org/10.5281/zenodo.23263315']]},
+  {s:'pre',t:'Design, construction and performance evaluation of a low-cost pilot-scale semi-batch pyrolysis plant for converting polystyrene and low-density polyethylene waste into fuel oil',a:'Ajoku M. V., Ezeokolie E. D., Nweke B. C., Taofeeq M. A., Ojinika A. P., Akoh M. D., Tile S. T.',v:'Research Square preprint, 2026. Submitted to Brazilian Journal of Chemical Engineering',l:[['Preprint','https://doi.org/10.21203/rs.3.rs-11337565/v1']]},
+  {s:'pre',t:'Prompt injection attacks in low-code AI platforms: a threat taxonomy and mitigation strategy',a:'Owuala S. O., Ajoku M. V., Asooye P. A., Ogunseye O. M., Mogaji D. C., Ikemdinachi B. I.',v:'Submitted to Acta Informatica Pragensia',l:[['Code and data','https://doi.org/10.5281/zenodo.23449065']]},
+  {s:'rev',t:'Benchmarking machine learning models for offshore oil production forecasting: a multi-horizon, multi-architecture study on the VOLVE dataset',a:'Ajoku M. V., Odigie T. O., Idika O. U., Odii E. P., Ezeokolie E. D.',v:'Under review at Archives of Advanced Engineering Science',l:[]},
+  {s:'rev',t:'Methane persistence, public accountability, and environmental justice in the New Mexico Permian Basin',a:'Ajoku M. V., et al.',v:'Under review at Journal of Environmental Justice',l:[['Code and data','https://doi.org/10.5281/zenodo.22739020']]},
+  {s:'rev',t:'Prompt personalization at scale: a framework for adaptive task assistants using LLMs',a:'Owuala S. O., Sidiqot T. O., Adedero C., Chidera S. I., Emmanuel U. A., Ajoku M. V.',v:'Under review at Journal of Artificial Intelligence and Robotics Research',l:[]}
+];
+const STAT = {pubd:'Published',pre:'Preprint',rev:'Under review'};
+
+const THEMES = [
+  {lead:true,img:'banner-membrane',title:'Membrane-based CO₂ capture',short:'A correctability map showing when pure-gas data can size mixed-gas Matrimid hollow-fibre modules.',
+   text:'Glassy polymers such as Matrimid 5218 are attractive for CO₂/N₂ separation, but their permeability depends on pressure and composition through dual-mode sorption. I embedded an exact partial-immobilisation flux with competitive sorption into a mass-balance-verified, counter-current hollow-fibre model, calibrated against independent literature data.',
+   find:'<b>Key finding.</b> Designing with pure-gas data at 1 bar overestimates CO₂ recovery by 2.5 to 3.5 points and undersizes modules by 5.6 to 9.6%. My correctability map shows which industrial sources (NGCC, coal, cement) can be fixed by routine testing and which need true mixed-gas characterisation.',
+   figs:[['fig-correctability-map','Correctability map: structural regime where no pure-gas test pressure corrects the design'],['fig-correcting-pressure','Correcting measurement pressure versus feed CO₂ partial pressure']],
+   links:[['Preprint','https://doi.org/10.21203/rs.3.rs-11646086/v1'],['Code and data','https://doi.org/10.5281/zenodo.23070727']]},
+  {img:'banner-hybrid',title:'Hybrid membrane–amine capture and techno-economics',short:'A pilot-validated MEA model showing membrane pre-concentration raises the cost of capture.',
+   text:'I built a rate-based MEA absorption model (ENRTL-RK, packed columns) validated against the Kaiserslautern pilot plant, scaled it to the NETL natural gas combined cycle baseline, and coupled it with a mixed-gas hollow-fibre membrane model to test membrane pre-concentration for NGCC, coal and cement flue gases.',
+   find:'<b>Key finding.</b> The model matched the reference within 0.1 points. Hybrid designs used 41 to 280% more energy and cost USD 22 to 1,057 per tonne CO₂ more than MEA alone, even with a free membrane, so single-stage pre-concentration is not justified ahead of 30 wt% MEA.',
+   figs:[['fig-hybrid-schematic','MEA-only and hybrid membrane–MEA configurations'],['fig-hybrid-tornado','Sensitivity of the hybrid cost penalty to key assumptions']],
+   links:[['Preprint','https://doi.org/10.21203/rs.3.rs-11674132/v1'],['Code','https://doi.org/10.5281/zenodo.23263315']]},
+  {img:'banner-amine',title:'Amine absorption process optimisation',
+   text:'My undergraduate thesis modelled an amine-based CO₂ absorption and stripping process in Aspen HYSYS, coupling mass and heat transfer to find optimal absorber pressure, solvent-to-feed ratio and separator temperature.',
+   find:'<b>Key finding.</b> Optimal conditions (220 kPa, solvent-to-feed ratio of 7.0, 25 °C) reached about 100% capture, and tuning the regenerator feed temperature cut reboiler energy demand by 12 to 15%. This work is now published.',
+   figs:[],links:[['Published paper','https://doi.org/10.51470/bits.2026.05.01.97']]},
+  {img:'banner-ml',title:'Machine learning for energy systems',
+   text:'I benchmark forecasting models honestly. On the Equinor VOLVE field, I compared decline-curve analysis, XGBoost, LSTM and Prophet at 1-day and 7-day horizons, with SHAP explanations of what drives predictions. I also built ANN-driven waterflood optimisation and Python proxy models for critical oil rate.',
+   find:'<b>Key finding.</b> A simple persistence baseline matched or beat complex models at short horizons, a result that guards against overstated claims for ML in production forecasting.',
+   figs:[['fig-volve-models','MAE and R² by model and forecast horizon'],['fig-volve-shap','SHAP summary of the XGBoost forecaster']],links:[]},
+  {img:'banner-methane',title:'Methane emissions and environmental justice',short:'Remote sensing and machine learning to prioritise methane inspections for vulnerable communities.',
+   text:'I integrated 3,944 remote-sensing methane plume detections from the New Mexico Permian Basin with federal reporting records and Census data, then trained a calibrated classifier to predict which sources become persistent emitters.',
+   find:'<b>Key finding.</b> A justice-aware inspection strategy captured 30.9% of population-weighted vulnerability benefit at a 5% inspection budget, compared with 1.3% for an emissions-only strategy.',
+   figs:[['fig-methane-region','Study region: methane sources classified by persistence'],['fig-methane-pareto','Mitigation strategies compared on a Pareto frontier']],
+   links:[['Code and data','https://doi.org/10.5281/zenodo.22739020']]},
+  {img:'banner-waste',title:'Waste-to-energy: plastic pyrolysis',
+   text:'I led the design and construction of a 35 kg per batch semi-batch pyrolysis plant from locally sourced materials, converting street-collected polystyrene and LDPE waste into fuel oil and characterising the products against ASTM standards.',
+   find:'<b>Key finding.</b> Polystyrene gave 72 wt% oil with no solid residue, and both oils met the ASTM D975 viscosity range.',
+   figs:[['fig-pyrolysis-schematic','Process schematic of the semi-batch pyrolysis plant'],['fig-reactor-photo','The fabricated reactor body']],
+   links:[['Preprint','https://doi.org/10.21203/rs.3.rs-11337565/v1']]}
+];
+
+const ICONS = {
+  chart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/><circle cx="7" cy="15" r="1"/><circle cx="11" cy="11" r="1"/><circle cx="14" cy="14" r="1"/><circle cx="19" cy="8" r="1"/></svg>',
+  clusters:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="7" cy="7" r="3"/><circle cx="17" cy="7" r="3"/><circle cx="7" cy="17" r="3"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r=".6" fill="currentColor"/><circle cx="17" cy="7" r=".6" fill="currentColor"/><circle cx="7" cy="17" r=".6" fill="currentColor"/><circle cx="17" cy="17" r=".6" fill="currentColor"/></svg>',
+  truck:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 6h11v10H2zM13 10h4l3 3v3h-7z"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>',
+  road:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3l9 16H3z"/><path d="M12 9v5M12 16.5v.5"/></svg>',
+  pen:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/><path d="M14 20h6"/></svg>',
+  shield:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M10 10l-2 2 2 2M14 10l2 2-2 2"/></svg>',
+  branch:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="8" height="6" rx="2"/><path d="M7 9v4c0 2 1 3 3 3h4M7 13h7"/><circle cx="17" cy="13" r="2"/><circle cx="17" cy="17" r="2"/><circle cx="17" cy="21" r="0" /></svg>',
+  well:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9h18M3 14h18M3 19h18"/><path d="M12 2v20"/><path d="M10 2h4"/></svg>',
+  net:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="4" cy="6" r="2"/><circle cx="4" cy="18" r="2"/><circle cx="12" cy="4" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="20" r="2"/><circle cx="20" cy="12" r="2"/><path d="M6 6l4-2M6 6l4 6M6 18l4-6M6 18l4 2M14 4l4 7M14 12h4M14 20l4-7"/></svg>'
+};
+
+const PROJECTS = [
+  {c:'research',img:'fig-correctability-map',white:1,t:'Correctability map for Matrimid hollow fibres',p:'When can pure-gas permeability data size a mixed-gas CO₂/N₂ membrane module?',tags:['Python','Dual-mode sorption','Hollow-fibre model'],
+   d:['Embedded an exact partial-immobilisation flux with competitive sorption into a counter-current hollow-fibre model with verified mass balance.','Calibrated the mobility parameter F·K against two independent literature datasets (0.191, 90% CI 0.123 to 0.272) and rejected a single-lab value in a held-out test.','Mapped NGCC, coal and cement flue gases onto correctable and uncorrectable regimes.'],
+   l:[['Preprint','https://doi.org/10.21203/rs.3.rs-11646086/v1'],['Code and data','https://doi.org/10.5281/zenodo.23070727']]},
+  {c:'research',img:'fig-hybrid-schematic',white:1,t:'Hybrid membrane–MEA techno-economics',p:'Rate-based MEA model validated on the Kaiserslautern pilot, coupled to a mixed-gas membrane model.',tags:['Aspen Plus','Aspen Custom Modeler','TEA'],
+   d:['Rate-based MEA model with ENRTL-RK thermodynamics, within 0.1 points of the AspenTech reference and 3.6 points of pilot measurement.','Built an amine performance map from 4.5 to 40 vol% CO₂ and found reboiler duty flattens above 20 to 30 vol%.','Showed hybrids cost USD 22 to 1,057 per tonne more than MEA alone across all tested assumptions.'],
+   l:[['Preprint','https://doi.org/10.21203/rs.3.rs-11674132/v1'],['Code','https://doi.org/10.5281/zenodo.23263315']]},
+  {c:'research',img:'fig-volve-models',white:1,t:'Offshore oil production forecasting (VOLVE)',p:'Multi-horizon benchmark of DCA, XGBoost, LSTM and Prophet with SHAP explanations.',tags:['XGBoost','LSTM','Prophet','SHAP'],
+   d:['Built leakage-safe well-level forecasting pipelines at 1-day and 7-day horizons on five VOLVE wells.','Analysed errors by production regime and well intermittency.','Found a persistence baseline hard to beat at short horizons, an honest result for practitioners.'],l:[]},
+  {c:'research',img:'fig-methane-region',white:1,t:'Methane persistence and environmental justice',p:'Remote sensing, federal reporting and Census data across 1,292 Permian Basin sources.',tags:['Python','Classification','Survival analysis'],
+   d:['Classified sources as isolated, intermittent, persistent or ultra-persistent.','Calibrated classifier predicted persistence from first five observations (AUROC 0.77).','Simulated inspection strategies and showed justice-aware targeting greatly increases benefit to vulnerable communities.'],
+   l:[['Code and data','https://doi.org/10.5281/zenodo.22739020']]},
+  {c:'design',img:'fig-pyrolysis-schematic',white:1,t:'Pilot-scale plastic pyrolysis plant',p:'Designed and built a 35 kg per batch reactor from local materials.',tags:['Reactor design','Fabrication','ASTM testing'],
+   d:['Designed the reactor, condenser and collection train and supervised fabrication.','PS waste gave 72 wt% oil with no residue; LDPE gave 56.9 wt% oil.','Characterised viscosity, flash point and sulphur against ASTM D975.'],
+   l:[['Preprint','https://doi.org/10.21203/rs.3.rs-11337565/v1']]},
+  {c:'design',img:'icon-hysys',t:'Amine CO₂ capture in Aspen HYSYS',p:'Undergraduate thesis: absorption–stripping optimisation, now published.',tags:['Aspen HYSYS','Optimisation'],
+   d:['Led a 10-member thesis team.','Identified optimal absorber pressure (220 kPa), solvent-to-feed ratio (7.0) and separator temperature (25 °C) for about 100% capture.','Cut regenerator energy demand by 12 to 15% through feed temperature optimisation.'],
+   l:[['Published paper','https://doi.org/10.51470/bits.2026.05.01.97']]},
+  {c:'design',img:'icon-acetic',t:'Acetic anhydride plant design (Cativa route)',p:'100,000 tonne per year plant using Anambra Basin coal.',tags:['Aspen HYSYS','Visio P&ID','Equipment sizing'],
+   d:['Led a 15-member design team to a top 5% project grade.','Completed mass and energy balances, reactor and column sizing and utility estimates.','Produced HYSYS flowsheets, P&IDs and safety and environmental protocols.'],l:[]},
+  {c:'research',icon:'net',t:'ANN-driven waterflood optimisation',p:'Neural networks linking injection rates to production metrics.',tags:['Python','ANN','Optimisation'],
+   d:['Co-led development of three-layer ReLU networks correlating injection rates with production.','Formulated a liquid rate and water cut objective function to find optimal injection parameters.'],l:[]},
+  {c:'research',icon:'well',t:'Proxy model for critical oil rate',p:'Python proxy predicting critical rate and optimal perforation depth.',tags:['Python','Scikit-learn','Proxy modelling'],
+   d:['Predicted critical rate and perforation depth from gas–oil contact data.','Achieved 2% relative error against the Papatzacos benchmark method.'],l:[]},
+  {c:'data',icon:'road',t:'UK road accident severity analysis',p:'Interactive Streamlit app predicting accident outcomes.',tags:['Streamlit','Classification','Python'],
+   d:['Applied classification models to UK traffic data using weather, time and location features.','Deployed as a public interactive web app.'],
+   l:[['Live app','https://ml-accident-analysis-uk.streamlit.app/'],['GitHub','https://github.com/neutron-96/ML-Accident-Analysis']]},
+  {c:'data',icon:'clusters',t:'Customer segmentation with RFM and K-Means',p:'Segmenting 500,000+ transactions into four customer groups.',tags:['Pandas','Scikit-learn','K-Means'],
+   d:['Performed RFM analysis on more than 500,000 transaction records.','Validated cluster count with the elbow method and silhouette score.'],
+   l:[['GitHub','https://github.com/neutron-96/customer-segmentation-sales-analytics']]},
+  {c:'data',icon:'truck',t:'Supply chain shipment dashboard',p:'On-time delivery drivers and cost control from 11,000+ shipments.',tags:['MySQL','Power BI','Python'],
+   d:['Identified drivers of on-time delivery with SQL and Python.','Built an interactive Power BI dashboard that improved KPI visibility by 15%.'],
+   l:[['GitHub','https://github.com/neutron-96/supply-chain-shipment-dashboard']]},
+  {c:'data',icon:'pen',t:'State of Content Writing in Nigeria, 2025',p:'Survey study of earnings and trends for 100+ writers.',tags:['Survey analysis','Python','Data visualisation'],
+   d:['Cleaned and analysed survey data on earnings, trends and challenges.','Findings published as an article and a full PDF report.'],
+   l:[['Article','https://ofoegbuchidinma.com/state-of-content-writing-in-nigeria-report-2025/'],['PDF report','https://drive.google.com/file/d/1tl50-MZt5CqFHeE-sE0vu0WXNgVKOWRC/view?usp=drivesdk'],['GitHub','https://github.com/neutron-96/state-of-content-writing-nigeria-2025']]},
+  {c:'data',icon:'shield',t:'Prompt injection in low-code AI platforms',p:'Threat taxonomy and mitigation strategy for AI security.',tags:['LLMs','Security','Taxonomy'],
+   d:['Co-developed a taxonomy of prompt injection attacks on low-code AI tools.','Proposed mitigation strategies; code and data archived on Zenodo.'],
+   l:[['Code and data','https://doi.org/10.5281/zenodo.23449065']]}
+];
+
+const EXP = [
+  {c:'work',w:'Sep 2025 to present',t:'Data Operations Analyst, Business Optimisation',o:'MEDLOG Transport and Logistics (subsidiary of MSC), Lagos',b:['Designed and deployed an automated reporting pipeline for fleet optimisation, cutting manual effort and speeding up operational visibility.','Analysed container movement and logistics KPIs with SQL and Excel, and built Power BI dashboards for real-time throughput and turnaround.','Led root-cause analysis of system and data discrepancies, reducing recurring reporting errors.']},
+  {c:'research',w:'2025 to present',t:'Independent Researcher, Carbon Capture and Energy Systems',o:'Collaborations with FUTO, Landmark University and LUT University (Finland)',b:['Developed mixed-gas hollow-fibre membrane models and rate-based MEA models for CO₂ capture.','Led techno-economic, machine learning and environmental data studies, resulting in eight papers and manuscripts.']},
+  {c:'research',w:'Aug 2023 to Jul 2024',t:'Undergraduate Researcher, Carbon Capture Systems',o:'FUTO. Supervisors: Engr. Prof. O. E. Onyelucheya, Engr. S. C. Anyikwa',b:['Modelled and optimised an amine absorption–stripping process in Aspen HYSYS, reaching about 100% capture.','Reduced regenerator energy demand by 12 to 15% through parametric optimisation.']},
+  {c:'research',w:'Aug 2023 to May 2024',t:'Undergraduate Researcher, Acetic Anhydride Plant Design',o:'FUTO. Supervisors: Engr. Prof. M. S. Nwakaudu, Engr. S. C. Anyikwa, Engr. B. C. Ngolube',b:['Led a 15-member team designing a 100,000 tonne per year plant via the Cativa process.','Completed process design calculations, HYSYS flowsheets and P&IDs.']},
+  {c:'work',w:'May 2023 to Aug 2023',t:'Process Simulation Intern',o:'Dumac Ibolo Services, Port Harcourt',b:['Developed Aspen HYSYS and Aspen Plus simulations to improve energy efficiency in industrial flue gas systems.','Reduced regeneration energy by 8% in case studies.']},
+  {c:'teaching',w:'Mar 2023 to Jan 2026',t:'Academic Tutor (STEM)',o:'GauthExpert, remote',b:['Solved more than 1,500 advanced calculus, chemistry and physics problems under 30 to 50 minute limits.','Maintained over 95% accuracy and over 90% user satisfaction.']},
+  {c:'teaching',w:'Nov 2019 to Apr 2023',t:'Lead Academic Tutor and Curriculum Developer',o:'Redeemed Christian Fellowship, FUTO',b:['Directed academic support for 300+ students across four cohorts, including course retakers.','Taught weekly tutorials in engineering mathematics, reaction engineering, process optimisation and transport phenomena.','Exam-prep frameworks achieved a 100% pass rate among retakers and a 40% average grade improvement.']},
+  {c:'teaching',w:'Jan 2019 to Oct 2019',t:'Freshman Academic Coordinator',o:'Redeemed Christian Fellowship, FUTO',b:['Led foundational STEM instruction for 200+ first-year students.']}
+];
+
+const SKILLS = [
+  {i:'M4 7h16v10H4zM8 21h8M12 17v4',t:'Process simulation and modelling',s:[['Aspen Plus','Rate-based columns, ENRTL-RK, custom Fortran unit operations'],['Aspen Custom Modeler','Custom membrane and unit models'],['Aspen HYSYS','Amine CO₂ capture, gas sweetening'],['COMSOL Multiphysics, DWSIM, MATLAB/Simulink',''],['Hollow-fibre membrane modelling','Dual-mode sorption, counter-current flow'],['Pilot-plant model validation','Kaiserslautern MEA pilot']]},
+  {i:'M3 3v18h18M7 14l3-3 3 3 5-6',t:'Process engineering and analysis',s:[['Techno-economic analysis','CAPEX, OPEX, cost of capture'],['Mass and energy balances, equipment sizing',''],['PFD and P&ID development','Microsoft Visio'],['Sensitivity, uncertainty and parameter calibration','Confidence intervals, held-out validation'],['Numerical methods','Grid convergence, discretisation, SQP optimisation']]},
+  {i:'M8 6l-6 6 6 6M16 6l6 6-6 6',t:'Programming and machine learning',s:[['Python','NumPy, SciPy, Pandas, Scikit-learn'],['XGBoost, TensorFlow/Keras (LSTM), Prophet, SHAP','Forecasting and explainability'],['Multi-objective optimisation','pymoo, NSGA-II'],['Surrogate and proxy models, ANNs, physics-informed ML',''],['Survival analysis and classifier calibration','Kaplan-Meier, ROC and PR analysis'],['Atomic Simulation Environment (ASE)','']]},
+  {i:'M3 5h18M3 12h18M3 19h18',t:'Data and geospatial analytics',s:[['SQL (MySQL), Power BI, Tableau, Advanced Excel',''],['Streamlit','Deployed web apps'],['Remote-sensing and geospatial data integration','Methane plumes, GeoPandas, Census data']]},
+  {i:'M12 3l9 4-9 4-9-4zM3 12l9 4 9-4M3 17l9 4 9-4',t:'Research and open science',s:[['Scientific writing and preprints','Eight papers and manuscripts'],['Peer review','Petroleum Science'],['Reproducible research','Git, GitHub, Zenodo DOIs'],['LaTeX, Zotero and Mendeley','']]},
+  {i:'M14 7l3-3 3 3-3 3M3 21l9-9M12 12l3 3',t:'Experimental and fabrication',s:[['Pilot-plant design and construction','35 kg per batch pyrolysis reactor'],['Fuel characterisation','Viscosity, flash point, sulphur (ASTM D975)']]},
+  {i:'M12 2a10 10 0 100 20 10 10 0 000-20zM2 12h20',t:'Professional',s:[['Technical leadership and project management','Led teams of 10 and 15'],['Curriculum development and teaching','500+ students'],['Interdisciplinary collaboration and scientific communication','']]}
+];
+
+const SVC = [
+  {w:'Jul 2025 to May 2026',t:'Community Development Advocate, NYSC–NDLEA Community Development Service Group',p:'Active member of the National Drug Law Enforcement Agency CDS group in Apapa LGA, Lagos.',b:['Delivered anti-drug sensitisation campaigns in schools, markets and community hubs.','Co-produced awareness materials with NDLEA officials on the social and economic impact of substance abuse.','Took part in environmental sanitation outreach with fellow corps members.']},
+  {w:'2026',t:'Peer Reviewer, Petroleum Science',p:'Reviewed a manuscript for Petroleum Science (China University of Petroleum, KeAi / Elsevier).',b:[]},
+  {w:'2019 to 2023',t:'Academic Development Strategist, Redeemed Christian Fellowship, FUTO',p:'',b:['Ran peer-to-peer academic interventions for 200+ struggling students.','Mobilised volunteer tutors across five engineering departments.']},
+  {w:'Aug 2023 to Jul 2024',t:'Group Lead, Undergraduate Thesis',p:'',b:['Directed a 10-member team through carbon capture simulations in Aspen HYSYS, from design to final report.']},
+  {w:'Aug 2023 to May 2024',t:'Group Lead, Plant Design Project',p:'',b:['Led a 15-person team designing an acetic anhydride plant, earning a top 5% project grade.']},
+  {w:'Ongoing',t:'Professional affiliations',p:'Nigerian Society of Chemical Engineers (NSChE) and Nigerian Universities Engineering Students Association (NUESA).',b:[]}
+];
+const AWARDS = [
+  {y:'2022 to 2024',t:'PTDF Merit Scholarship',p:'Awarded to the top 1% of Nigerian engineering students for academic excellence and research potential in energy (₦800,000 per session).'},
+  {y:'2020 to 2024',t:'Federal Scholarship Board Merit Scholarship',p:'Selected from more than 5,000 applicants nationwide for sustained academic distinction.'},
+  {y:'2018/2019',t:'NUESA FUTO Engineering Paper of the Year',p:'Recognised as the top undergraduate engineering research paper for originality and scholarly contribution.'}
+];
+
+/* ================= RENDER ================= */
+const $ = s=>document.querySelector(s);
+const esc = s=>s;
+const linkChips = l=>l.map(([n,u])=>`<a class="chip" href="${u}" target="_blank" rel="noopener">${n} ${I.ext}</a>`).join('');
+
+$('#heroSocials').innerHTML = PROFILES.map(p=>`<a href="${p.u}" ${p.k!=='mail'?'target="_blank" rel="noopener"':''} aria-label="${p.n}" title="${p.n}">${I[p.k]}</a>`).join('');
+$('#profileList').innerHTML = PROFILES.map(p=>`<a href="${p.u}" ${p.k!=='mail'?'target="_blank" rel="noopener"':''}>${I[p.k]}<span><b>${p.n}</b><small>${p.d}</small></span></a>`).join('');
+
+$('#featured').innerHTML = [0,1,4].map(i=>{const t=THEMES[i];return `<article class="feat" tabindex="0" data-go="research"><img src="assets/img/${t.img}.webp" alt="" loading="lazy"><div class="in"><span class="kicker">${i===0?'Lead research':'Research'}</span><h3>${t.title}</h3><p>${t.short}</p></div></article>`}).join('');
+
+$('#themes').innerHTML = THEMES.map((t,i)=>`
+ <article class="theme ${i%2?'flip':''}">
+  <div class="media"><img src="assets/img/${t.img}.webp" alt="" loading="lazy">${t.lead?'<span class="lead-tag">Lead research interest</span>':''}</div>
+  <div><h3>${t.title}</h3><p>${t.text}</p><div class="finding">${t.find}</div>
+   ${t.figs.length?`<div class="figrow">${t.figs.map(([f,c])=>`<button class="figthumb" data-lb="assets/img/${f}.webp" data-cap="${c}" aria-label="Enlarge figure: ${c}"><img src="assets/img/${f}.webp" alt="${c}" loading="lazy"></button>`).join('')}</div>`:''}
+   ${t.links.length?`<div class="links">${linkChips(t.links)}</div>`:''}
+  </div></article>`).join('');
+
+const renderPubs = f=>{
+  $('#pubList').innerHTML = PUBS.filter(p=>f==='all'||p.s===f).map(p=>`
+   <article class="pub"><div class="status ${p.s}">${STAT[p.s]}</div><div>
+    <h3>${p.t}</h3><p class="auth">${p.a.replace(ME,'<b>'+ME+'</b>')}</p><p class="venue">${p.v}</p>
+    ${p.l.length?`<div class="links">${linkChips(p.l)}</div>`:''}</div></article>`).join('');
+};
+renderPubs('all');
+
+$('#projGrid').innerHTML = PROJECTS.map((p,i)=>`
+ <button class="card" data-c="${p.c}" data-i="${i}">
+  <div class="thumb ${p.white?'white':''}">${p.img?`<img src="assets/img/${p.img}.webp" alt="" loading="lazy">`:ICONS[p.icon]}</div>
+  <div class="in"><h3>${p.t}</h3><p>${p.p}</p><div class="tags">${p.tags.map(t=>`<span>${t}</span>`).join('')}</div></div>
+ </button>`).join('');
+
+$('#timeline').innerHTML = EXP.map(e=>`
+ <div class="tl ${e.c==='teaching'?'am':''}" data-c="${e.c}"><span class="when">${e.w}</span><h3>${e.t}</h3><p class="org">${e.o}</p>
+ <ul>${e.b.map(b=>`<li>${b}</li>`).join('')}</ul></div>`).join('');
+
+$('#skillGrid').innerHTML = SKILLS.map(s=>`
+ <div class="sk"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="${s.i}"/></svg>${s.t}</h3>
+ <ul>${s.s.map(([a,b])=>`<li>${a}${b?`<small>${b}</small>`:''}</li>`).join('')}</ul></div>`).join('') +
+ `<div class="sk wide"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h9M8 3v2M6 5c0 4 3 7 6 8M11 5c0 3-3 7-7 9M13 21l4-9 4 9M14.5 18h5"/></svg>Languages</h3>
+ <div class="lang"><div><b>English</b><span class="muted">Fluent, professional and academic</span><div class="meter"><i style="width:100%"></i></div></div>
+ <div><b>German</b><span class="muted">Basic</span><div class="meter"><i style="width:25%"></i></div></div></div></div>`;
+
+$('#svcList').innerHTML = SVC.map(s=>`<article><span class="when">${s.w}</span><h3>${s.t}</h3>${s.p?`<p>${s.p}</p>`:''}${s.b.length?`<ul>${s.b.map(b=>`<li>${b}</li>`).join('')}</ul>`:''}</article>`).join('');
+$('#awardList').innerHTML = AWARDS.map(a=>`<div class="award"><span class="yr">${a.y}</span><h3>${a.t}</h3><p>${a.p}</p></div>`).join('');
+$('#yr').textContent = new Date().getFullYear();
+
+/* ================= FILTERS ================= */
+const setPressed=(grp,btn)=>grp.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b===btn));
+document.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{setPressed(b.parentNode,b);renderPubs(b.dataset.f)});
+document.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{setPressed(b.parentNode,b);document.querySelectorAll('#projGrid .card').forEach(c=>c.hidden=!(b.dataset.p==='all'||c.dataset.c===b.dataset.p))});
+document.querySelectorAll('[data-e]').forEach(b=>b.onclick=()=>{setPressed(b.parentNode,b);document.querySelectorAll('#timeline .tl').forEach(c=>c.hidden=!(b.dataset.e==='all'||c.dataset.c===b.dataset.e))});
+
+/* ================= MODALS ================= */
+const modal=$('#modal'), lb=$('#lightbox');
+document.querySelectorAll('dialog').forEach(d=>{d.querySelector('.close').onclick=()=>d.close();d.addEventListener('click',e=>{if(e.target===d)d.close()})});
+$('#projGrid').addEventListener('click',e=>{
+  const c=e.target.closest('.card'); if(!c) return; const p=PROJECTS[c.dataset.i];
+  $('#modalBody').innerHTML=`${p.img?`<div class="mhead ${p.white?'white':''}"><img src="assets/img/${p.img}.webp" alt=""></div>`:''}
+   <div class="mbody"><span class="kicker">${{research:'Research',design:'Engineering design',data:'Data science'}[p.c]}</span><h3>${p.t}</h3><p class="lede">${p.p}</p>
+   <ul>${p.d.map(x=>`<li>${x}</li>`).join('')}</ul><div class="tags" style="margin-bottom:18px">${p.tags.map(t=>`<span>${t}</span>`).join('')}</div>
+   ${p.l.length?`<div class="links" style="display:flex;flex-wrap:wrap;gap:8px">${linkChips(p.l)}</div>`:''}</div>`;
+  modal.showModal();
+});
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-lb]'); if(!t) return;
+  $('#lbImg').src=t.dataset.lb; $('#lbImg').alt=t.dataset.cap; $('#lbCap').textContent=t.dataset.cap; lb.showModal();
+});
+
+/* ================= ROUTER ================= */
+const PAGES=['home','research','publications','projects','experience','skills','service','contact'];
+const menu=$('#menu'), mbtn=$('.menu-btn');
+function route(){
+  let h=(location.hash||'#home').slice(1); if(!PAGES.includes(h)) h='home';
+  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id==='page-'+h));
+  document.querySelectorAll('#menu a[data-link]').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+h));
+  document.title = (h==='home'?'':h[0].toUpperCase()+h.slice(1)+' · ')+'Miracle Victory Ajoku';
+  window.scrollTo({top:0,behavior:'instant'}); menu.classList.remove('open'); mbtn.setAttribute('aria-expanded','false');
+}
+window.addEventListener('hashchange',route); route();
+mbtn.onclick=()=>{const o=menu.classList.toggle('open');mbtn.setAttribute('aria-expanded',o)};
+document.querySelectorAll('[data-go]').forEach(el=>{const go=()=>location.hash=el.dataset.go;el.onclick=go;el.onkeydown=e=>{if(e.key==='Enter')go()}});
+
+/* ================= COPY EMAIL ================= */
+$('#copyMail').onclick=async()=>{try{await navigator.clipboard.writeText('miracleajoku96@gmail.com')}catch(e){}
+  const t=$('#toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)};
+
+/* ================= ROLE TYPER ================= */
+(()=>{const roles=['Membrane CO₂ capture researcher','Process modeller','Techno-economic analyst','Machine learning practitioner'];
+ const el=$('#roleText'); if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+ let r=0,i=roles[0].length,del=true;
+ const tick=()=>{const w=roles[r]; if(del){i--; if(i<=0){del=false;r=(r+1)%roles.length}} else {i++; if(i>=roles[r].length){del=true;el.textContent=roles[r];return setTimeout(tick,2200)}}
+  el.textContent=roles[r].slice(0,Math.max(i,0)); setTimeout(tick,del?35:65)};
+ setTimeout(tick,2600)})();
+</script>
+</body>
+</html>
