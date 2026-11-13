@@ -686,6 +686,7 @@ $('#skillGrid').innerHTML = SKILLS.map(s=>`
  <ul>${s.s.map(([a,b])=>`<li>${a}${b?`<small>${b}</small>`:''}</li>`).join('')}</ul></div>`).join('') +
  `<div class="sk wide"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h9M8 3v2M6 5c0 4 3 7 6 8M11 5c0 3-3 7-7 9M13 21l4-9 4 9M14.5 18h5"/></svg>Languages</h3>
  <div class="lang"><div><b>English</b><span class="muted">Fluent, professional and academic</span><div class="meter"><i style="width:100%"></i></div></div>
+ <div><b>French</b><span class="muted">Basic</span><div class="meter"><i style="width:35%"></i></div></div>
  <div><b>German</b><span class="muted">Basic</span><div class="meter"><i style="width:25%"></i></div></div></div></div>`;
 
 $('#svcList').innerHTML = SVC.map(s=>`<article><span class="when">${s.w}</span><h3>${s.t}</h3>${s.p?`<p>${s.p}</p>`:''}${s.b.length?`<ul>${s.b.map(b=>`<li>${b}</li>`).join('')}</ul>`:''}</article>`).join('');
