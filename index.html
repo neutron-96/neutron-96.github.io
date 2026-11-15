@@ -82,6 +82,7 @@ section.block{padding-bottom:72px}
 @keyframes drift{from{transform:scale(1.05) translateX(0)}to{transform:scale(1.14) translateX(-2%)}}
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,var(--ink) 0%,rgba(10,24,40,.93) 38%,rgba(10,24,40,.55) 70%,rgba(10,24,40,.75) 100%),linear-gradient(0deg,var(--ink) 0%,transparent 30%)}
 .hero .wrap{display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:center;padding-top:48px;padding-bottom:64px}
+.hello{font-family:var(--display);font-size:clamp(.95rem,1.6vw,1.15rem);letter-spacing:.32em;text-transform:uppercase;color:var(--teal);margin-bottom:14px}
 .hero h1{font-size:clamp(2.6rem,6vw,4.6rem);font-weight:700;letter-spacing:-.025em;line-height:1.02}
 .hero h1 .sub{display:block;font-size:.42em;font-weight:500;color:var(--muted);letter-spacing:0;margin-top:18px;line-height:1.35}
 .role{font-family:var(--display);font-size:clamp(1.05rem,2vw,1.3rem);color:var(--teal);margin:22px 0 0;min-height:1.6em}
@@ -220,9 +221,9 @@ section.block{padding-bottom:72px}
 .sk li small{display:block;color:var(--muted);font-size:.82rem}
 .sk.wide{grid-column:1/-1}
 .lang{display:flex;gap:16px;flex-wrap:wrap}
-.lang div{flex:1;min-width:200px;padding:16px 18px;border-radius:12px;background:var(--deep);border:1px solid var(--line)}
+.lang>div{flex:1;min-width:200px;padding:16px 18px;border-radius:12px;background:var(--deep);border:1px solid var(--line)}
 .lang b{font-family:var(--display);display:block}
-.meter{height:6px;border-radius:3px;background:var(--line);margin-top:10px;overflow:hidden}
+.meter{height:8px;border-radius:3px;background:var(--line);margin-top:10px;overflow:hidden}
 .meter i{display:block;height:100%;background:var(--teal)}
 
 /* ---------- service ---------- */
@@ -306,6 +307,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     <div class="hero-bg" aria-hidden="true"></div>
     <div class="wrap">
       <div>
+        <p class="hello">Hello, I’m</p>
         <h1>Miracle Victory Ajoku<span class="sub">Chemical engineer modelling CO₂ separation, from membrane transport physics to plant-scale techno-economics.</span></h1>
         <p class="role" aria-live="polite"><span id="roleText">Membrane CO₂ capture researcher</span><span class="caret"></span></p>
         <p class="lede">I build physics-based models of gas separation, validate them against pilot data, and use techno-economics and machine learning to test whether common design shortcuts actually hold.</p>
