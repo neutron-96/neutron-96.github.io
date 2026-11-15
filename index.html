@@ -24,6 +24,13 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:90px}
 body{font-family:var(--body);background:var(--ink);color:var(--text);line-height:1.65;font-size:17px;-webkit-font-smoothing:antialiased;min-height:100vh}
+
+body::before{content:"";position:fixed;inset:0;z-index:-5;pointer-events:none;
+ background:
+  radial-gradient(700px 500px at 88% 18%,rgba(45,212,191,.07),transparent 70%),
+  radial-gradient(600px 480px at 8% 85%,rgba(245,165,36,.05),transparent 70%),
+  radial-gradient(rgba(147,168,189,.09) 1px,transparent 1.2px) 0 0/26px 26px}
+main,footer{position:relative}
 img{max-width:100%;display:block}
 a{color:var(--teal);text-decoration:none}
 a:hover{text-decoration:underline}
