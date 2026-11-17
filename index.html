@@ -386,7 +386,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   <div class="wrap"><section class="block">
     <div class="filters" role="group" aria-label="Filter publications">
       <button aria-pressed="true" data-f="all">All</button>
-      <button aria-pressed="false" data-f="pubd">Published</button>
+      <button aria-pressed="false" data-f="pubd">Published and in press</button>
       <button aria-pressed="false" data-f="pre">Preprints and submitted</button>
       <button aria-pressed="false" data-f="rev">Under review</button>
     </div>
@@ -525,11 +525,12 @@ const PROFILES = [
 const ME = 'Ajoku M. V.';
 const PUBS = [
   {s:'pubd',t:'The potential of amine-to-feed flowrate ratio for post-combustion carbon capture systems using Aspen HYSYS',a:'Anyikwa S. O., Ajoku M. V., et al. (co-lead author)',v:'Journal of Business, IT, and Social Science, 5(1), 97–103, 2026',l:[['DOI','https://doi.org/10.51470/bits.2026.05.01.97']]},
+  {s:'pubd',lab:'In press',t:'Benchmarking machine learning models for offshore oil production forecasting: a multi-horizon, multi-architecture study on the VOLVE dataset',a:'Ajoku M. V., Odigie T. O., Idika O. U., Odii E. P., Ezeokolie E. D.',v:'Archives of Advanced Engineering Science, 2026. Accepted, in press',l:[]},
   {s:'pre',t:'Can pure-gas permeability data design a mixed-gas module? A correctability map for dual-mode CO₂/N₂ transport in Matrimid 5218 hollow fibres',a:'Ajoku M. V., Sola-Ojo M., Duru G. C.',v:'Research Square preprint, 2026. Submitted to Theoretical Foundations of Chemical Engineering',l:[['Preprint','https://doi.org/10.21203/rs.3.rs-11646086/v1'],['Code and data','https://doi.org/10.5281/zenodo.23070727']]},
   {s:'pre',t:'Membrane pre-concentration ahead of MEA absorption: a rate-based, mixed-gas techno-economic assessment for natural gas, coal and cement flue gases',a:'Ajoku M. V.',v:'Research Square preprint, 2026. Submitted to Chemical and Biochemical Engineering Quarterly',l:[['Preprint','https://doi.org/10.21203/rs.3.rs-11674132/v1'],['Code','https://doi.org/10.5281/zenodo.23263315']]},
   {s:'pre',t:'Design, construction and performance evaluation of a low-cost pilot-scale semi-batch pyrolysis plant for converting polystyrene and low-density polyethylene waste into fuel oil',a:'Ajoku M. V., Ezeokolie E. D., Nweke B. C., Taofeeq M. A., Ojinika A. P., Akoh M. D., Tile S. T.',v:'Research Square preprint, 2026. Submitted to Brazilian Journal of Chemical Engineering',l:[['Preprint','https://doi.org/10.21203/rs.3.rs-11337565/v1']]},
   {s:'pre',t:'Prompt injection attacks in low-code AI platforms: a threat taxonomy and mitigation strategy',a:'Owuala S. O., Ajoku M. V., Asooye P. A., Ogunseye O. M., Mogaji D. C., Ikemdinachi B. I.',v:'Submitted to Acta Informatica Pragensia',l:[['Code and data','https://doi.org/10.5281/zenodo.23449065']]},
-  {s:'rev',t:'Benchmarking machine learning models for offshore oil production forecasting: a multi-horizon, multi-architecture study on the VOLVE dataset',a:'Ajoku M. V., Odigie T. O., Idika O. U., Odii E. P., Ezeokolie E. D.',v:'Under review at Archives of Advanced Engineering Science',l:[]},
+  
   {s:'rev',t:'Methane persistence, public accountability, and environmental justice in the New Mexico Permian Basin',a:'Ajoku M. V., et al.',v:'Under review at Journal of Environmental Justice',l:[['Code and data','https://doi.org/10.5281/zenodo.22739020']]},
   {s:'rev',t:'Prompt personalization at scale: a framework for adaptive task assistants using LLMs',a:'Owuala S. O., Sidiqot T. O., Adedero C., Chidera S. I., Emmanuel U. A., Ajoku M. V.',v:'Under review at Journal of Artificial Intelligence and Robotics Research',l:[]}
 ];
@@ -552,7 +553,7 @@ const THEMES = [
    figs:[],links:[['Published paper','https://doi.org/10.51470/bits.2026.05.01.97']]},
   {img:'banner-ml',title:'Machine learning for energy systems',
    text:'I benchmark forecasting models honestly. On the Equinor VOLVE field, I compared decline-curve analysis, XGBoost, LSTM and Prophet at 1-day and 7-day horizons, with SHAP explanations of what drives predictions. I also built ANN-driven waterflood optimisation and Python proxy models for critical oil rate.',
-   find:'<b>Key finding.</b> A simple persistence baseline matched or beat complex models at short horizons, a result that guards against overstated claims for ML in production forecasting.',
+   find:'<b>Key finding.</b> A simple persistence baseline matched or beat complex models at short horizons, a result that guards against overstated claims for ML in production forecasting. Accepted in Archives of Advanced Engineering Science (in press).',
    figs:[['fig-volve-models','MAE and R² by model and forecast horizon'],['fig-volve-shap','SHAP summary of the XGBoost forecaster']],links:[]},
   {img:'banner-methane',title:'Methane emissions and environmental justice',short:'Remote sensing and machine learning to prioritise methane inspections for vulnerable communities.',
    text:'I integrated 3,944 remote-sensing methane plume detections from the New Mexico Permian Basin with federal reporting records and Census data, then trained a calibrated classifier to predict which sources become persistent emitters.',
@@ -585,7 +586,7 @@ const PROJECTS = [
   {c:'research',img:'fig-hybrid-schematic',white:1,t:'Hybrid membrane–MEA techno-economics',p:'Rate-based MEA model validated on the Kaiserslautern pilot, coupled to a mixed-gas membrane model.',tags:['Aspen Plus','Aspen Custom Modeler','TEA'],
    d:['Rate-based MEA model with ENRTL-RK thermodynamics, within 0.1 points of the AspenTech reference and 3.6 points of pilot measurement.','Built an amine performance map from 4.5 to 40 vol% CO₂ and found reboiler duty flattens above 20 to 30 vol%.','Showed hybrids cost USD 22 to 1,057 per tonne more than MEA alone across all tested assumptions.'],
    l:[['Preprint','https://doi.org/10.21203/rs.3.rs-11674132/v1'],['Code','https://doi.org/10.5281/zenodo.23263315']]},
-  {c:'research',img:'fig-volve-models',white:1,t:'Offshore oil production forecasting (VOLVE)',p:'Multi-horizon benchmark of DCA, XGBoost, LSTM and Prophet with SHAP explanations.',tags:['XGBoost','LSTM','Prophet','SHAP'],
+  {c:'research',img:'fig-volve-models',white:1,t:'Offshore oil production forecasting (VOLVE)',p:'Multi-horizon benchmark of DCA, XGBoost, LSTM and Prophet with SHAP explanations. Accepted, in press.',tags:['XGBoost','LSTM','Prophet','SHAP'],
    d:['Built leakage-safe well-level forecasting pipelines at 1-day and 7-day horizons on five VOLVE wells.','Analysed errors by production regime and well intermittency.','Found a persistence baseline hard to beat at short horizons, an honest result for practitioners.'],l:[]},
   {c:'research',img:'fig-methane-region',white:1,t:'Methane persistence and environmental justice',p:'Remote sensing, federal reporting and Census data across 1,292 Permian Basin sources.',tags:['Python','Classification','Survival analysis'],
    d:['Classified sources as isolated, intermittent, persistent or ultra-persistent.','Calibrated classifier predicted persistence from first five observations (AUROC 0.77).','Simulated inspection strategies and showed justice-aware targeting greatly increases benefit to vulnerable communities.'],
@@ -674,7 +675,7 @@ $('#themes').innerHTML = THEMES.map((t,i)=>`
 
 const renderPubs = f=>{
   $('#pubList').innerHTML = PUBS.filter(p=>f==='all'||p.s===f).map(p=>`
-   <article class="pub"><div class="status ${p.s}">${STAT[p.s]}</div><div>
+   <article class="pub"><div class="status ${p.s}">${p.lab||STAT[p.s]}</div><div>
     <h3>${p.t}</h3><p class="auth">${p.a.replace(ME,'<b>'+ME+'</b>')}</p><p class="venue">${p.v}</p>
     ${p.l.length?`<div class="links">${linkChips(p.l)}</div>`:''}</div></article>`).join('');
 };
